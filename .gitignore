@@ -93,4 +93,5 @@ ENV/
 .gitignore
 .idea/workspace.xml\
 
-
+.idea
+print_bot_id.py

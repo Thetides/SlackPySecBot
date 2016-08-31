@@ -18,8 +18,14 @@ def handle_command(command, channel):
     If so, then acts on the commands. If not, returns back what it needs for clarification
     """
     response = "Not sure what you mean. Use the *" + EXAMPLE_COMMAND + "* command with numbers, delimited by spaces."
+
     if command.startswith(EXAMPLE_COMMAND):
-        response = "Sure...write some more code then I can do that!"
+        print "Handler " + EXAMPLE_COMMAND
+        # cupofjoe command
+        if command.split()[1] == 'cupofjoe':
+            response = "Kill yourself Joe!"
+        else:
+            response = "Sure...write some more code then I can do that!"
     slack_client.api_call("chat.postMessage", channel=channel, text=response, as_user=True)
 
 def parse_slack_output(slack_rtm_output):
