@@ -25,6 +25,7 @@ def handle_command(command, channel):
         if command.split()[1] == 'cupofjoe':
             response = "Kill yourself Joe!"
         else:
+            # If command doesn't exist return this response
             response = "Sure...write some more code then I can do that!"
     slack_client.api_call("chat.postMessage", channel=channel, text=response, as_user=True)
 
