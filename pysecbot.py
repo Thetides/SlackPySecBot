@@ -4,7 +4,7 @@ from slackclient import SlackClient
 
 # pysecbot's ID as an enviornment variable
 BOT_ID = os.environ.get("BOT_ID")
-
+system = os.system('uname -a')
 # constants
 AT_BOT = "<@" + BOT_ID + ">"
 EXAMPLE_COMMAND = "do"
@@ -19,11 +19,43 @@ def handle_command(command, channel):
     """
     response = "Not sure what you mean. Use the *" + EXAMPLE_COMMAND + "* command with numbers, delimited by spaces."
 
+    """
+    Creating a command for the bot:
+        1. When calling to the bot in Slack the string will be parsed. From there it will look at the first word in the
+           string. handle_command will check that and if it matches the EXAMPLE_COMMAND the bot will evaluate the next
+           section in the string.
+        2. Now if it matches the first section and the next section does not match the conditions programmed it will spit
+           out a custom error.
+        3. If they bot match it will run the section of the code in the IF statement.
+
+        Example:
+            if command.statswith(EXAMPLE_COMMAND):
+                # this will move to the nested IF statement
+                if command.split()[1] == 'Argument':  # here we are look at the next section of the string. If true will
+                                                      # run the block of code
+                    do block of code
+
+    """
+
+
+
+
     if command.startswith(EXAMPLE_COMMAND):
         print "Handler " + EXAMPLE_COMMAND
         # cupofjoe command
-        if command.split()[1] == 'cupofjoe':
+        if command.split()[1] == 'option':
+            response = """----------------------
+            [1] - cupofjoe
+            [2] -
+            [3] -
+            """
+
+
+
+        elif command.split()[1] == 'cupofjoe':
             response = "Kill yourself Joe!"
+        elif command.split()[1] == 'system': # not a super safe command to add to you bot, but pretty cool!
+            response = os.popen(command.split()[2]).read()
         else:
             # If command doesn't exist return this response
             response = "Sure...write some more code then I can do that!"

@@ -1,6 +1,10 @@
 import os
 from slackclient import SlackClient
-
+"""Use this program and the API Key(SLACK_BOT_TOKEN) to pull the ID for your Slack PyBot
+   Once you get the user ID set that up as the BOT_ID
+   TODO:
+        1. Have this create the BOT_ID in envs vars
+"""
 BOT_NAME = 'plizzly'
 
 slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
