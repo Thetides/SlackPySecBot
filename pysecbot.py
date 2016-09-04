@@ -2,12 +2,27 @@ import os
 import time
 from slackclient import SlackClient
 
+"""
+    Todo:
+        1. Create Brosec integration
+        2. Add Tool web scraping
+            a. Top 10
+            b. New
+                a1. Today
+                b2. Week
+                c3. Month
+        3. Optimize Code
+        4. Docker integration
+        5.
+"""
+
+
 # pysecbot's ID as an enviornment variable
 BOT_ID = os.environ.get("BOT_ID")
 system = os.system('uname -a')
 # constants
 AT_BOT = "<@" + BOT_ID + ">"
-EXAMPLE_COMMAND = "do"
+COMMANDS = ["do", "bros"]
 
 # instantiate Slack & Twilio clients
 slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
@@ -17,7 +32,7 @@ def handle_command(command, channel):
     Receives commands directed at the bot and determines if they are valid commands.
     If so, then acts on the commands. If not, returns back what it needs for clarification
     """
-    response = "Not sure what you mean. Use the *" + EXAMPLE_COMMAND + "* command with numbers, delimited by spaces."
+    response = "Not sure what you mean. Use the *" + COMMANDS + "* command with numbers, delimited by spaces."
 
     """
     Creating a command for the bot:
@@ -31,34 +46,33 @@ def handle_command(command, channel):
         Example:
             if command.statswith(EXAMPLE_COMMAND):
                 # this will move to the nested IF statement
-                if command.split()[1] == 'Argument':  # here we are look at the next section of the string. If true will
+                if command.split()[2] == 'Argument':  # here we are breaking the string you give the bot in to a list
+                                                      # and looking at the next section of the string. If true will
                                                       # run the block of code
                     do block of code
 
     """
 
+    for cmd in COMMANDS:    # Loops through COMMANDS
+        if command.startswith(cmd):    # Checks to see if the string sent to the Bot starts with any of the COMMANDS set in the list
+            print "Handler " + cmd
+            # cupofjoe command
+            if command.split()[1] == 'option':
+                response = """----------------------
+                [1] - cupofjoe
+                [2] -
+                [3] -
+                """
 
 
 
-    if command.startswith(EXAMPLE_COMMAND):
-        print "Handler " + EXAMPLE_COMMAND
-        # cupofjoe command
-        if command.split()[1] == 'option':
-            response = """----------------------
-            [1] - cupofjoe
-            [2] -
-            [3] -
-            """
-
-
-
-        elif command.split()[1] == 'cupofjoe':
-            response = "Kill yourself Joe!"
-        elif command.split()[1] == 'system': # not a super safe command to add to you bot, but pretty cool!
-            response = os.popen(command.split()[2]).read()
-        else:
-            # If command doesn't exist return this response
-            response = "Sure...write some more code then I can do that!"
+            elif command.split()[1] == 'cupofjoe':
+                response = "Kill yourself Joe!"
+            elif command.split()[1] == 'system': # not a super safe command to add to you bot, but pretty cool!
+                response = os.popen(command.split()[2]).read()
+            else:
+                # If command doesn't exist return this response
+                response = "Sure...write some more code then I can do that!"
     slack_client.api_call("chat.postMessage", channel=channel, text=response, as_user=True)
 
 def parse_slack_output(slack_rtm_output):
