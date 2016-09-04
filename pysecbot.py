@@ -66,10 +66,8 @@ def handle_command(command, channel):
                 continue
 
 
-            elif command.split()[1] == 'cupofjoe':
-                response = "Kill yourself Joe!"
-            #elif command.split()[1] == 'system': # not a super safe command to add to you bot, but pretty cool!
-                #response = os.popen(command.split()[2]).read()
+            elif command.split()[1] == 'something':
+                response = "doing something"
             else:
                 # If command doesn't exist return this response
                 response = "Sure...write some more code then I can do that!"
